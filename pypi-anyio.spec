@@ -4,12 +4,13 @@
 #
 Name     : pypi-anyio
 Version  : 3.6.1
-Release  : 3
+Release  : 4
 URL      : https://files.pythonhosted.org/packages/67/c4/fd50bbb2fb72532a4b778562e28ba581da15067cfb2537dbd3a2e64689c1/anyio-3.6.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/67/c4/fd50bbb2fb72532a4b778562e28ba581da15067cfb2537dbd3a2e64689c1/anyio-3.6.1.tar.gz
 Summary  : High level compatibility layer for multiple asynchronous event loop implementations
 Group    : Development/Tools
 License  : MIT
+Requires: pypi-anyio-filemap = %{version}-%{release}
 Requires: pypi-anyio-license = %{version}-%{release}
 Requires: pypi-anyio-python = %{version}-%{release}
 Requires: pypi-anyio-python3 = %{version}-%{release}
@@ -27,6 +28,14 @@ BuildRequires : pypi-virtualenv
 
 %description
 Unnamed repository; edit this file 'description' to name the repository.
+
+%package filemap
+Summary: filemap components for the pypi-anyio package.
+Group: Default
+
+%description filemap
+filemap components for the pypi-anyio package.
+
 
 %package license
 Summary: license components for the pypi-anyio package.
@@ -48,6 +57,7 @@ python components for the pypi-anyio package.
 %package python3
 Summary: python3 components for the pypi-anyio package.
 Group: Default
+Requires: pypi-anyio-filemap = %{version}-%{release}
 Requires: python3-core
 Provides: pypi(anyio)
 Requires: pypi(idna)
@@ -60,13 +70,16 @@ python3 components for the pypi-anyio package.
 %prep
 %setup -q -n anyio-3.6.1
 cd %{_builddir}/anyio-3.6.1
+pushd ..
+cp -a anyio-3.6.1 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1652457239
+export SOURCE_DATE_EPOCH=1652992819
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -77,6 +90,15 @@ export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 -m build --wheel --skip-dependency-check --no-isolation
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+python3 -m build --wheel --skip-dependency-check --no-isolation
+
+popd
 
 %install
 export MAKEFLAGS=%{?_smp_mflags}
@@ -87,9 +109,22 @@ pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
+pip install --root=%{buildroot}-v3 --no-deps --ignore-installed dist/*.whl
+popd
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-pypi-anyio
 
 %files license
 %defattr(0644,root,root,0755)

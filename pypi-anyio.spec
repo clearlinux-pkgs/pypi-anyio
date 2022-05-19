@@ -4,13 +4,12 @@
 #
 Name     : pypi-anyio
 Version  : 3.6.1
-Release  : 4
+Release  : 5
 URL      : https://files.pythonhosted.org/packages/67/c4/fd50bbb2fb72532a4b778562e28ba581da15067cfb2537dbd3a2e64689c1/anyio-3.6.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/67/c4/fd50bbb2fb72532a4b778562e28ba581da15067cfb2537dbd3a2e64689c1/anyio-3.6.1.tar.gz
 Summary  : High level compatibility layer for multiple asynchronous event loop implementations
 Group    : Development/Tools
 License  : MIT
-Requires: pypi-anyio-filemap = %{version}-%{release}
 Requires: pypi-anyio-license = %{version}-%{release}
 Requires: pypi-anyio-python = %{version}-%{release}
 Requires: pypi-anyio-python3 = %{version}-%{release}
@@ -28,14 +27,6 @@ BuildRequires : pypi-virtualenv
 
 %description
 Unnamed repository; edit this file 'description' to name the repository.
-
-%package filemap
-Summary: filemap components for the pypi-anyio package.
-Group: Default
-
-%description filemap
-filemap components for the pypi-anyio package.
-
 
 %package license
 Summary: license components for the pypi-anyio package.
@@ -57,7 +48,6 @@ python components for the pypi-anyio package.
 %package python3
 Summary: python3 components for the pypi-anyio package.
 Group: Default
-Requires: pypi-anyio-filemap = %{version}-%{release}
 Requires: python3-core
 Provides: pypi(anyio)
 Requires: pypi(idna)
@@ -79,7 +69,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1652992819
+export SOURCE_DATE_EPOCH=1652994881
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -121,10 +111,6 @@ popd
 
 %files
 %defattr(-,root,root,-)
-
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-pypi-anyio
 
 %files license
 %defattr(0644,root,root,0755)

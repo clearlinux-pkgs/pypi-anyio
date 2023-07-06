@@ -4,10 +4,10 @@
 # Using build pattern: pyproject
 #
 Name     : pypi-anyio
-Version  : 3.7.0
-Release  : 18
-URL      : https://files.pythonhosted.org/packages/c6/b3/fefbf7e78ab3b805dec67d698dc18dd505af7a18a8dd08868c9b4fa736b5/anyio-3.7.0.tar.gz
-Source0  : https://files.pythonhosted.org/packages/c6/b3/fefbf7e78ab3b805dec67d698dc18dd505af7a18a8dd08868c9b4fa736b5/anyio-3.7.0.tar.gz
+Version  : 3.7.1
+Release  : 19
+URL      : https://files.pythonhosted.org/packages/28/99/2dfd53fd55ce9838e6ff2d4dac20ce58263798bd1a0dbe18b3a9af3fcfce/anyio-3.7.1.tar.gz
+Source0  : https://files.pythonhosted.org/packages/28/99/2dfd53fd55ce9838e6ff2d4dac20ce58263798bd1a0dbe18b3a9af3fcfce/anyio-3.7.1.tar.gz
 Summary  : High level compatibility layer for multiple asynchronous event loop implementations
 Group    : Development/Tools
 License  : MIT
@@ -54,10 +54,10 @@ python3 components for the pypi-anyio package.
 
 
 %prep
-%setup -q -n anyio-3.7.0
-cd %{_builddir}/anyio-3.7.0
+%setup -q -n anyio-3.7.1
+cd %{_builddir}/anyio-3.7.1
 pushd ..
-cp -a anyio-3.7.0 buildavx2
+cp -a anyio-3.7.1 buildavx2
 popd
 
 %build
@@ -65,7 +65,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685241391
+export SOURCE_DATE_EPOCH=1688657015
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib

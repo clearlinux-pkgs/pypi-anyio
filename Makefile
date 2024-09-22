@@ -1,5 +1,5 @@
 PKG_NAME := pypi-anyio
-URL = https://files.pythonhosted.org/packages/a0/44/66874c5256e9fbc30103b31927fd9341c8da6ccafd4721b2b3e81e6ef176/anyio-4.5.0.tar.gz
+URL = https://files.pythonhosted.org/packages/78/49/f3f17ec11c4a91fe79275c426658e509b07547f874b14c1a526d86a83fc8/anyio-4.6.0.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common

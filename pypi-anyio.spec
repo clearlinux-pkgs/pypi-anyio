@@ -7,7 +7,7 @@
 #
 Name     : pypi-anyio
 Version  : 4.8.0
-Release  : 35
+Release  : 36
 URL      : https://files.pythonhosted.org/packages/a3/73/199a98fc2dae33535d6b8e8e6ec01f8c1d76c9adb096c6b7d64823038cde/anyio-4.8.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/a3/73/199a98fc2dae33535d6b8e8e6ec01f8c1d76c9adb096c6b7d64823038cde/anyio-4.8.0.tar.gz
 Summary  : High level compatibility layer for multiple asynchronous event loop implementations
